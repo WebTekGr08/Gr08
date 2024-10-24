@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Er du smartere enn et skolebarn?</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Er du smartere enn et skolebarn?</h1>
+        <div id="category-select">
+            <h2>Velg kategori:</h2>
+            <button class="category" onclick="startQuiz('matte')">Matte</button>
+            <button class="category" onclick="startQuiz('naturfag')">Naturfag</button>
+            <button class="category" onclick="startQuiz('samfunnsfag')">Samfunnsfag</button>
+        </div>
+        
+        <div id="quiz-container" style="display: none;">
+            <div id="progress-bar">
+                <div id="progress"></div>
+            </div>
+            <div id="timer">Tid igjen: <span id="time-left">10</span></div>
+            <div id="question"></div>
+            <div class="options">
+                <button class="option" onclick="checkAnswer(0)"></button>
+                <button class="option" onclick="checkAnswer(1)"></button>
+                <button class="option" onclick="checkAnswer(2)"></button>
+                <button class="option" onclick="checkAnswer(3)"></button>
+            </div>
+            <div id="feedback"></div>
+        </div>
+
+        <div id="status" style="display: none;">
+            <p id="lives">Liv igjen: 3</p>
+            <p id="score">Poeng: 0</p>
+        </div>
+        <button id="next-button" onclick="nextQuestion()" style="display: none;">Neste spørsmål</button>
+        <button id="restart-button" onclick="restartQuiz()" style="display: none;">Start på nytt</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
