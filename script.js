@@ -105,7 +105,7 @@ const questions = {
         { 
             question: "Hvem grunnla buddhismen?", 
             options: ["Konfucius", "Siddharta Gautama (Buddha)", "Krishna", "Muhammad"], 
-            correctAnswer: 2
+            correctAnswer: 1
         },
     ],
     engelsk: [
