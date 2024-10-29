@@ -2,47 +2,46 @@
 <html lang="no">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Er du smartere enn et skolebarn?🤓</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Er du smartere enn en barneskoleelev?</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Er du smartere enn et skolebarn?</h1>
-        <div id="category-select">
-            <h2>Velg kategori:</h2>
-            <button class="category" onclick="startQuiz('matte')">MATTE</button>
-            <button class="category" onclick="startQuiz('naturfag')">NATURFAG</button>
-            <button class="category" onclick="startQuiz('samfunnsfag')">SAMFUNNSFAG</button>
-            <button class="category" onclick="startQuiz('norsk')">NORSK</button>
-            <button class="category" onclick="startQuiz('engelsk')">ENGELSK</button>
-            <button class="category" onclick="startQuiz('krle')">KRLE</button>
+    <!-- Hjemskjerm -->
+    <div id="home-screen">
+        <h1>Velg et fag 📚</h1>
+        <div class="categories">
+            <button class="category" data-category="matte">Matte</button>
+            <button class="category" data-category="naturfag">Naturfag</button>
+            <button class="category" data-category="samfunnsfag">Samfunnsfag</button>
+            <button class="category" data-category="norsk">Norsk</button>
+            <button class="category" data-category="engelsk">Engelsk</button>
+            <button class="category" data-category="krle">KRLE</button>
         </div>
-        
-        <div id="quiz-container" style="display: none;">
-            <div id="progress-bar">
-                <div id="progress"></div>
-            </div>
-            <div id="timer">Tid igjen: <span id="time-left">10</span></div>
-            <div id="question"></div>
-            <div class="options">
-                <button class="option" onclick="checkAnswer(0)"></button>
-                <button class="option" onclick="checkAnswer(1)"></button>
-                <button class="option" onclick="checkAnswer(2)"></button>
-                <button class="option" onclick="checkAnswer(3)"></button>
-            </div>
-            <div id="feedback"></div>
-        </div>
-
-        <div id="status" style="display: none;">
-            <p id="lives">Liv igjen: 3</p>
-            <p id="score">Poeng: 0</p>
-        </div>
-        <button id="next-button" onclick="nextQuestion()" style="display: none;">Neste spørsmål</button>
-        <button id="restart-button" onclick="restartQuiz()" style="display: none;">Start på nytt</button>
+        <div id="lives">Liv igjen: <span id="life-count">3</span></div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Quizskjerm -->
+    <div id="quiz-screen" style="display: none;">
+        <div id="quiz-lives">
+            <span id="quiz-life-count">❤❤❤</span>
+        </div>
+        <h2 id="question-text"></h2>
+        <div id="answers"></div>
+    </div>
+
+    <!-- Game Over-skjerm -->
+    <div id="game-over-screen" style="display: none;">
+        <h1>Game Over!</h1>
+        <button id="restart-button">Start på nytt</button>
+    </div>
+    
+
+    <!-- Vinn-skjerm -->
+    <div id="win-screen" style="display: none;">
+        <h1>Gratulerer! Du vant spillet!</h1>
+        <button id="restart-button-win">Start på nytt</button>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
-
