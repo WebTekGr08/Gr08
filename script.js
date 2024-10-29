@@ -1,307 +1,228 @@
-const questions = {
-    matte: [
-        { 
-            question: "Hva er 25 % av 320?", 
-            options: ["15", "50", "80", "110"], 
-            correctAnswer: 2 
-        },
-        { 
-            question: "Hva er differansen mellom 123 og 78?", 
-            options: ["48", "55", "50", "45"], 
-            correctAnswer: 3 
-        },
-        { 
-            question: "Hva er arealet av et rektangel med lengde 7 cm og bredde 5 cm?", 
-            options: ["25 cm^2", "30 cm^2", "35 cm^2", "40 cm^2"], 
-            correctAnswer: 2 
-        },
-        { 
-            question: "Hva er 0,75 + 1,2?", 
-            options: ["2,1", "1,15", "2,05", "1,95"], 
-            correctAnswer: 3
-        },
-        { 
-            question: "Hvis en bok koster 120 kroner og det får 20 % rabatt, hvor mye må du betale??", 
-            options: ["100 kr", "96 kr", "108 kr", "112 kr"], 
-            correctAnswer: 1
-        },
+// Henter elementer fra DOM
+const lifeCountElement = document.getElementById('life-count');
+const quizLifeCountElement = document.getElementById('quiz-life-count'); 
+const categoryButtons = document.querySelectorAll('.category');
+const homeScreen = document.getElementById('home-screen');
+const quizScreen = document.getElementById('quiz-screen');
+const gameOverScreen = document.getElementById('game-over-screen');
+const winScreen = document.getElementById('win-screen');
+const questionText = document.getElementById('question-text');
+const answersDiv = document.getElementById('answers');
+const restartButton = document.getElementById('restart-button');
+const restartButtonWin = document.getElementById('restart-button-win');
 
-    ],
-    naturfag: [
-        { 
-            question: "Hva heter den største planeten i solsystemet?", 
-            options: ["Amfibier", "Reptiler", "Fugler", "Pattedyr"], 
-            correctAnswer: 0
-        },
-        { 
-            question: "Hvor mange planeter er det i solsystemet?", 
-            options: ["8", "7", "9", "10"], 
-            correctAnswer: 0 
-        },
-        { 
-            question: "Hvor beskytter jorda mot skadelige stråler fra sola?", 
-            options: ["Atmosfæren", "Ozonlaget", "Skyer", "Månen"], 
-            correctAnswer: 1 
-        },
-        { 
-            question: "Hva kalles det øverste laget av jordkloden?", 
-            options: ["Mantelen", "Jordskorpa", "Ytterskallet", "Havoverflaten"], 
-            correctAnswer: 1 
-        },
-        { 
-            question: "Hva kalles forandringen fra larve til sommerfugl?", 
-            options: ["Fotosyntese", "Fordamping", "Metamorfose", "Symbiose"], 
-            correctAnswer: 2
-        },
-    ],
-    samfunnsfag: [
-        { 
-            question: "Hva heter den nest største byen i Norge?", 
-            options: ["Bergen", "Stavanger", "Trondheim", "Oslo"], 
-            correctAnswer: 0
-        },
-        { 
-            question: "Hvem var Norges første konge?", 
-            options: ["Olav Tryggvason", "Harald Hårfagre", "Haakon den Gode", "Olav den Hellige"], 
-            correctAnswer: 1 
-        },
-        { 
-            question: "Hvilket land er kjent som Solens rike?", 
-            options: ["Kina", "Thailand", "Malaysia", "Japan"], 
-            correctAnswer: 3
-        },
-        { 
-            question: "Hvilken by er ikke hovedstad i sitt land?", 
-            options: ["Roma", "Madrid", "Bern", "Sydney"], 
-            correctAnswer: 3
-        },
-        { 
-            question: "Hva heter den historiske handelsruten som forbinder Europa og Asia?", 
-            options: ["Krydderveien", "Gullveien", "Silkeveien", "Kullruta"], 
-            correctAnswer: 2
-        },
-    ],
-    krle: [
-        { 
-            question: "Hvilken religion er knyttet til moskeer?", 
-            options: ["Kristendom", "Hinduisme", "Islam", "Buddhismen"], 
-            correctAnswer: 2
-        },
-        { 
-            question: "Hva er en guru i hinduismen?", 
-            options: ["En religiøs lærer", "En tempelprest", "En guddom", "En helgen"], 
-            correctAnswer: 0
-        },
-        { 
-            question: "Hva kalles de ti reglene Moses mottok fra Gud på Sinaifjellet?", 
-            options: ["Bergprekenen", "De ti dyder", "De ti bud", "Apostlenes regler"], 
-            correctAnswer: 2
-        },
-        { 
-            question: "Hvilket symbol er mest kjent for jødedommen?", 
-            options: ["Korset", "Davidstjernen", "Halvmånen", "Hjulet"], 
-            correctAnswer: 1
-        },
-        { 
-            question: "Hvem grunnla buddhismen?", 
-            options: ["Konfucius", "Siddharta Gautama (Buddha)", "Krishna", "Muhammad"], 
-            correctAnswer: 1
-        },
-    ],
-    engelsk: [
-        { 
-            question: "Hva heter papegøye på engelsk?", 
-            options: ["Turquoise", "Parrot", "Cheetah", "Deer"], 
-            correctAnswer: 1
-        },
-        { 
-            question: "Hva heter tallet 5 på engelsk?", 
-            options: ["Three", "Seven", "Five", "Nine"], 
-            correctAnswer: 2
-        },
-        { 
-            question: "Kan du si setningen 'Jeg liker å spille fotball' på engelsk?", 
-            options: ["I play like football", "I like play football", "I like to play fotbal", "I like to play football"], 
-            correctAnswer: 3
-        },
-        { 
-            question: "Kan du oversette det norske ordet 'katt' til engelsk og stave det?", 
-            options: ["C-A-P", "K-A-T", "C-A-T-T", "C-A-T"], 
-            correctAnswer: 3
-        },
-        { 
-            question: "Hva er de engelske navnene på fargene rød, blå og grønn?", 
-            options: ["Red, Blue, Green", "Blue, Gren, Reed", "Brown, Grey, Blue", "Rød, Blå, Grønn"], 
-            correctAnswer: 1
-        },
-    ],
-    norsk: [
-        { 
-            question: "Hva er et substantiv?", 
-            options: ["En handling", "Et sted, en ting eller en person", "Et følelse", "Et spørsmål"], 
-            correctAnswer: 1
-        },
-        { 
-            question: "Hva er en synonym for ordet 'glad'?", 
-            options: ["Lei seg", "Trist", "Lykkelig", "Slem"], 
-            correctAnswer: 2
-        },
-        { 
-            question: "Hva betyr ordet 'fortelling'?", 
-            options: ["En liste med navn", "En historie", "En tegning", "Et spørsmål"], 
-            correctAnswer: 1
-        },
-        { 
-            question: "Hva betyr det at en setning er en helsetning?", 
-            options: ["Den har flere komma", "Den slutter med spørsmålstegn", "Den starter med stor bokstav", "Den gir mening alene"], 
-            correctAnswer: 3
-        },
-        { 
-            question: "Hvilket av disse ordene er et verb?", 
-            options: ["Hoppet", "Skogen", "Sommer", "Fortelling"], 
-            correctAnswer: 0
-        },
-    ]
-};
-
+let lives = 3;
+let completedCategories = [];
 let currentCategory = '';
 let currentQuestionIndex = 0;
-let score = 0;
-let lives = 3;
-let timer;
-let timeLeft = 10;
-let progressStep;
+let correctAnswers = 0;
+let shuffledQuestions = [];
 
-const questionElement = document.getElementById('question');
-const optionButtons = document.getElementsByClassName('option');
-const feedbackElement = document.getElementById('feedback');
-const scoreElement = document.getElementById('score');
-const livesElement = document.getElementById('lives');
-const nextButton = document.getElementById('next-button');
-const restartButton = document.getElementById('restart-button');
-const progressElement = document.getElementById('progress');
-const timeLeftElement = document.getElementById('time-left');
-const quizContainer = document.getElementById('quiz-container');
-const categorySelect = document.getElementById('category-select');
-const statusElement = document.getElementById('status');
+const questions = {
+    matte: [
+        { question: "Hva er 5 + 7?", answers: ["10", "11", "12", "13"], correct: 2 },
+        { question: "Hva er 9 x 6?", answers: ["54", "56", "48", "52"], correct: 0 },
+        { question: "Hva er kvadratroten av 121?", answers: ["10", "11", "12", "13"], correct: 1 },
+        { question: "Hva er 15 - 8?", answers: ["6", "7", "8", "9"], correct: 1 },
+        { question: "Hva er 7²?", answers: ["42", "45", "49", "56"], correct: 2 },
+        { question: "Hva er 1000 ÷ 10?", answers: ["10", "100", "1000", "10000"], correct: 1 },
+        { question: "Hva er 14 + 28?", answers: ["32", "38", "42", "44"], correct: 2 },
+        { question: "Hva er 0,5 x 8?", answers: ["2", "3", "4", "5"], correct: 2 },
+        { question: "Hva er 20% av 50?", answers: ["5", "10", "15", "20"], correct: 1 },
+        { question: "Hva er summen av vinklene i en trekant?", answers: ["90°", "180°", "270°", "360°"], correct: 1 },
+    ],
+    naturfag: [
+        { question: "Hva er det kjemiske symbolet for gull?", answers: ["Ag", "Au", "G", "Go"], correct: 1 },
+        { question: "Hva er den største planeten i solsystemet vårt?", answers: ["Jupiter", "Saturn", "Neptun", "Mars"], correct: 0 },
+        { question: "Hva heter prosessen der planter omdanner lys til energi?", answers: ["Respirasjon", "Fotosyntese", "Fermentering", "Osmose"], correct: 1 },
+        { question: "Hvilket organ pumper blod i kroppen?", answers: ["Lungene", "Hjertet", "Nyrene", "Leveren"], correct: 1 },
+        { question: "Hva er hovedgassen i jordens atmosfære?", answers: ["Oksygen", "Karbondioksid", "Nitrogen", "Hydrogen"], correct: 2 },
+        { question: "Hva er den røde planeten?", answers: ["Venus", "Mars", "Jupiter", "Merkur"], correct: 1 },
+        { question: "Hvor mange kromosomer har et menneske?", answers: ["23", "46", "69", "92"], correct: 1 },
+        { question: "Hva er det hardeste naturlige materialet?", answers: ["Diamant", "Granitt", "Kvarts", "Stål"], correct: 0 },
+        { question: "Hvilken enhet måler elektrisk strøm?", answers: ["Volt", "Ampere", "Ohm", "Watt"], correct: 1 },
+        { question: "Hva er pH-verdien til rent vann?", answers: ["7", "0", "14", "5"], correct: 0 },
+    ],
+    samfunnsfag: [
+        { question: "Hva er hovedstaden i Norge?", answers: ["Bergen", "Oslo", "Trondheim", "Stavanger"], correct: 1 },
+        { question: "Hvilken verdensdel ligger Egypt i?", answers: ["Asia", "Afrika", "Europa", "Sør-Amerika"], correct: 1 },
+        { question: "Hvem er Norges konge?", answers: ["Kong Harald V", "Kong Olav V", "Kong Haakon VII", "Kong Carl XVI Gustaf"], correct: 0 },
+        { question: "Når fikk kvinner stemmerett i Norge?", answers: ["1905", "1913", "1920", "1945"], correct: 1 },
+        { question: "Hva er FN en forkortelse for?", answers: ["Fellesforbundet", "Folkets Nasjon", "Forente Nasjoner", "Fredsforbundet"], correct: 2 },
+        { question: "Hvilket land brukte først demokratiet?", answers: ["Roma", "Hellas", "Egypt", "Kina"], correct: 1 },
+        { question: "Hva heter valutaen i USA?", answers: ["Euro", "Pund", "Dollar", "Yen"], correct: 2 },
+        { question: "Hvilket hav ligger mellom Afrika og Australia?", answers: ["Atlanterhavet", "Det indiske hav", "Stillehavet", "Nordishavet"], correct: 1 },
+        { question: "Hva er verdens største land etter areal?", answers: ["Canada", "USA", "Russland", "Kina"], correct: 2 },
+        { question: "Hvem var Norges første statsminister?", answers: ["Jens Stoltenberg", "Frederik Stang", "Gro Harlem Brundtland", "Einar Gerhardsen"], correct: 1 },
+    ],
+    norsk: [
+        { question: "Hvem skrev 'Peer Gynt'?", answers: ["Henrik Ibsen", "Knut Hamsun", "Bjørnstjerne Bjørnson", "Sigrid Undset"], correct: 0 },
+        { question: "Hva er et synonym for 'rask'?", answers: ["Langsom", "Hurtig", "Stor", "Liten"], correct: 1 },
+        { question: "Hva er antonymet til 'høy'?", answers: ["Lav", "Tynn", "Mørk", "Lys"], correct: 0 },
+        { question: "Hvilken bokstav kommer etter 'H' i det norske alfabetet?", answers: ["I", "J", "K", "L"], correct: 0 },
+        { question: "Hva er et verb?", answers: ["Beskriver en handling", "Navn på ting", "Beskriver egenskaper", "Navn på steder"], correct: 0 },
+        { question: "Hva er den norske nasjonalsangen?", answers: ["Ja, vi elsker", "Gud signe vårt dyre fedreland", "Norge i rødt, hvitt og blått", "Mitt lille land"], correct: 0 },
+        { question: "Hvem skrev 'Sult'?", answers: ["Henrik Ibsen", "Knut Hamsun", "Alexander Kielland", "Amalie Skram"], correct: 1 },
+        { question: "Hva er en 'metafor'?", answers: ["En sammenligning uten 'som'", "En overdrivelse", "Et lydhermende ord", "Et rim"], correct: 0 },
+        { question: "Hva er 'substantiv'?", answers: ["Navn på en person, sted eller ting", "Beskriver en handling", "Beskriver en egenskap", "Beskriver et antall"], correct: 0 },
+        { question: "Hva betyr 'antonym'?", answers: ["Et ord med motsatt betydning", "Et ord med samme betydning", "Et beskrivende ord", "Et uvanlig ord"], correct: 0 },
+    ],
+    engelsk: [
+        { question: "Hva betyr 'apple' på norsk?", answers: ["Ananas", "Eple", "Pære", "Banan"], correct: 1 },
+        { question: "Hva er det engelske ordet for 'katt'?", answers: ["Dog", "Cat", "Mouse", "Bird"], correct: 1 },
+        { question: "Hva er preteritum av 'go'?", answers: ["Goes", "Went", "Gone", "Going"], correct: 1 },
+        { question: "Hva betyr 'beautiful'?", answers: ["Stygg", "Vakker", "Slem", "Snill"], correct: 1 },
+        { question: "Hva er flertallsformen av 'child'?", answers: ["Childs", "Children", "Childes", "Child"], correct: 1 },
+        { question: "Hva er motsatt av 'old'?", answers: ["Young", "New", "Ancient", "Modern"], correct: 0 },
+        { question: "Hva betyr 'to run'?", answers: ["Å gå", "Å hoppe", "Å løpe", "Å sitte"], correct: 2 },
+        { question: "Hva er riktig oversettelse av 'bok'?", answers: ["Book", "Back", "Buck", "Bike"], correct: 0 },
+        { question: "Hva betyr 'house'?", answers: ["Hus", "Muse", "Hest", "Lus"], correct: 0 },
+        { question: "Hva er det engelske ordet for 'skole'?", answers: ["School", "Shoel", "Skool", "Shool"], correct: 0 },
+    ],
+    krle: [
+        { question: "Hvem er sentral i kristendommen?", answers: ["Muhammed", "Buddha", "Jesus", "Moses"], correct: 2 },
+        { question: "Hva heter islams hellige bok?", answers: ["Bibelen", "Torahen", "Koranen", "Vedaene"], correct: 2 },
+        { question: "Hvor mange bud er det i de ti bud?", answers: ["5", "7", "10", "12"], correct: 2 },
+        { question: "Hvilken religion feirer Ramadan?", answers: ["Kristendom", "Islam", "Jødedom", "Hinduisme"], correct: 1 },
+        { question: "Hva er etikk?", answers: ["Læren om rett og galt", "Læren om universet", "Læren om planter", "Læren om tall"], correct: 0 },
+        { question: "Hvem var Siddhartha Gautama?", answers: ["Grunnleggeren av buddhismen", "En kristen apostel", "En hinduistisk gud", "En islamsk profet"], correct: 0 },
+        { question: "Hva symboliserer duen i kristendommen?", answers: ["Fred", "Krig", "Lykke", "Sorg"], correct: 0 },
+        { question: "Hvilken religion praktiserer yoga som en del av sin tradisjon?", answers: ["Kristendom", "Hinduisme", "Jødedom", "Islam"], correct: 1 },
+        { question: "Hva betyr 'ateist'?", answers: ["En som ikke tror på noen gud", "En som tror på én gud", "En som er usikker på om gud eksisterer", "En som tror på mange guder"], correct: 0 },
+        { question: "Hva er den gyldne regel?", answers: ["Gjør mot andre det du vil at andre skal gjøre mot deg", "Den som har gull, har makt", "Vinn for enhver pris", "Følg alltid reglene"], correct: 0 },
+    ],
+};
 
+
+// Håndtere kategorivalg
+categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+        if (completedCategories.includes(category)) return;
+        startQuiz(category);
+    });
+});
+
+// Funksjon for å stokke en array 
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+}
+
+// Starte quizzen
 function startQuiz(category) {
     currentCategory = category;
+    correctAnswers = 0;
+    lifeCountElement.innerText = lives;
+    updateQuizLivesDisplay();
+
+    // Stokk spørsmålene og ta de første 10
+    const categoryQuestions = [...questions[currentCategory]];
+    shuffledQuestions = shuffle(categoryQuestions).slice(0, 10);
     currentQuestionIndex = 0;
-    score = 0;
-    lives = 3;
-    timeLeft = 10;
-    progressStep = 100 / questions[category].length;
-    
-    quizContainer.style.display = 'block';
-    categorySelect.style.display = 'none';
-    statusElement.style.display = 'block';
-    
-    loadQuestion();
-    updateStatus();
-    startTimer();
+
+    homeScreen.style.display = 'none';
+    quizScreen.style.display = 'block';
+
+    showQuestion();
 }
 
-function loadQuestion() {
-    const currentQuestion = questions[currentCategory][currentQuestionIndex];
-    questionElement.textContent = currentQuestion.question;
-    
-    for (let i = 0; i < optionButtons.length; i++) {
-        optionButtons[i].textContent = currentQuestion.options[i];
+// Funksjon for å oppdatere livsindikatoren på quizskjermen
+function updateQuizLivesDisplay() {
+    let livesDisplay = '';
+    for (let i = 0; i < lives; i++) {
+        livesDisplay += '❤';
     }
-    
-    feedbackElement.textContent = '';
-    nextButton.style.display = 'none';
-    progressElement.style.width = progressStep * (currentQuestionIndex + 1) + '%';
+    quizLifeCountElement.innerText = livesDisplay;
 }
 
-function checkAnswer(selectedOption) {
-    const currentQuestion = questions[currentCategory][currentQuestionIndex];
-    stopTimer();
+// Vise spørsmål
+function showQuestion() {
+    const questionData = shuffledQuestions[currentQuestionIndex];
+    questionText.innerText = questionData.question;
+    answersDiv.innerHTML = '';
 
-    if (selectedOption === currentQuestion.correctAnswer) {
-        score += timeLeft;  // Ekstra poeng basert på tid igjen
-        feedbackElement.textContent = "Riktig!";
-        feedbackElement.style.color = "#4caf50";
+    questionData.answers.forEach((answer, index) => {
+        const btn = document.createElement('button');
+        btn.innerText = answer;
+        btn.addEventListener('click', () => checkAnswer(index));
+        answersDiv.appendChild(btn);
+    });
+}
+
+// Sjekke svar
+function checkAnswer(selectedIndex) {
+    const questionData = shuffledQuestions[currentQuestionIndex];
+    if (selectedIndex === questionData.correct) {
+        correctAnswers++;
+        if (correctAnswers === 3) {
+            categoryCompleted(currentCategory);
+            return;
+        }
     } else {
         lives--;
-        feedbackElement.textContent = "Feil!";
-        feedbackElement.style.color = "#f44336";
-    }
-    
-    updateStatus();
-    nextButton.style.display = 'block';
-    
-    if (lives <= 0) {
-        endGame();
-    }
-}
-
-function nextQuestion() {
-    currentQuestionIndex++;
-    
-    if (currentQuestionIndex >= questions[currentCategory].length) {
-        endGame();
-    } else {
-        timeLeft = 10;
-        loadQuestion();
-        startTimer();
-    }
-}
-
-function updateStatus() {
-    scoreElement.textContent = `Poeng: ${score}`;
-    livesElement.textContent = `Liv igjen: ${lives}`;
-    timeLeftElement.textContent = timeLeft;
-}
-
-function startTimer() {
-    timer = setInterval(() => {
-        timeLeft--;
-        timeLeftElement.textContent = timeLeft;
-        
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            lives--;
-            feedbackElement.textContent = "Tiden er ute!";
-            feedbackElement.style.color = "#f44336";
-            nextButton.style.display = 'block';
-            updateStatus();
-            
-            if (lives <= 0) {
-                endGame();
-            }
+        lifeCountElement.innerText = lives;
+        updateQuizLivesDisplay();
+        if (lives <= 0) {  
+            gameOver();
+            return;
         }
-    }, 1000);
-}
-
-function stopTimer() {
-    clearInterval(timer);
-}
-
-function endGame() {
-    stopTimer();
-    questionElement.textContent = lives > 0 ? "Gratulerer! Du har fullført quizen!" : "Game Over!";
-    feedbackElement.textContent = `Du fikk ${score} poeng!`;
-    
-    for (let i = 0; i < optionButtons.length; i++) {
-        optionButtons[i].style.display = 'none';
     }
-    
-    nextButton.style.display = 'none';
-    restartButton.style.display = 'block';
-}
 
-function restartQuiz() {
-    restartButton.style.display = 'none';
-    
-    for (let i = 0; i < optionButtons.length; i++) {
-        optionButtons[i].style.display = 'block';
+    currentQuestionIndex++;
+    if (currentQuestionIndex < shuffledQuestions.length) {
+        showQuestion();
+    } else {
+        categoryCompleted(currentCategory);
     }
-    
-    categorySelect.style.display = 'block';
-    quizContainer.style.display = 'none';
-    statusElement.style.display = 'none';
 }
 
-loadQuestion();
+// Fullføre kategori
+function categoryCompleted(category) {
+    completedCategories.push(category);
+    quizScreen.style.display = 'none';
+    homeScreen.style.display = 'block';
+
+    const categoryButton = document.querySelector(`button[data-category="${category}"]`);
+    categoryButton.classList.add('completed');
+
+    if (completedCategories.length === categoryButtons.length) {
+        winGame();
+    }
+}
+
+// Game Over
+function gameOver() {
+    quizScreen.style.display = 'none';
+    gameOverScreen.style.display = 'block';
+}
+
+// Vinn spillet
+function winGame() {
+    homeScreen.style.display = 'none';
+    winScreen.style.display = 'block';
+}
+
+// Restart funksjonalitet
+restartButton.addEventListener('click', resetGame);
+restartButtonWin.addEventListener('click', resetGame);
+
+function resetGame() {
+    lives = 3;
+    lifeCountElement.innerText = lives;
+    updateQuizLivesDisplay();
+
+    completedCategories = [];
+    categoryButtons.forEach(button => {
+        button.classList.remove('completed');
+    });
+
+    gameOverScreen.style.display = 'none';
+    winScreen.style.display = 'none';
+    homeScreen.style.display = 'block';
+}
